@@ -1,0 +1,25 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
+
+# Environment files
+.env
+*.env
+.env.*
+
+# VSCode settings
+.vscode/
+
+# macOS files
+.DS_Store
+
+# System-specific junk
+Thumbs.db
+
