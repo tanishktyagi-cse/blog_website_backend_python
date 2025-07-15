@@ -1,11 +1,13 @@
 from fastapi import APIRouter, HTTPException, status
-from app.schemas.user import UserCreate, UserResponse
+from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.models.user import User
-from app.security.hashing import hash_password
+from app.security.hashing import hash_password, verify_password, create_access_token
 from app.db.mongodb import mongodb  # use existing DB connection
+from app.schemas.tokens import TokenResponse
 
 router = APIRouter()
 
+# User Register Route
 @router.post("/register", response_model=UserResponse)
 async def register_user(user_data: UserCreate):
     # Using it inside because outside it wont be able to call DB Collection because it is still NONE.(MongoDB is NONE not connected)
@@ -34,3 +36,24 @@ async def register_user(user_data: UserCreate):
         is_active=new_user.is_active,
         created_at=new_user.created_at
     )
+
+# User Login Route
+@router.post("/login", response_model=TokenResponse)
+async def login_user(user_data: UserLogin):
+    users_collection = mongodb.db["users"]
+    user = await users_collection.find_one({"email": user_data.email})
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+
+    if not verify_password(user_data.password, user["hashed_password"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+
+    access_token = create_access_token({"sub": user["email"]})
+    return TokenResponse(access_token=access_token, token_type="bearer")
