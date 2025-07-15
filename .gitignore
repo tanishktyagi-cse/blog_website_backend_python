@@ -11,8 +11,7 @@ __pycache__/
 
 # Environment files
 .env
-*.env
-.env.*
+
 
 # VSCode settings
 .vscode/
