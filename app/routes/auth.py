@@ -54,6 +54,10 @@ async def login_user(user_data: UserLogin):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-
-    access_token = create_access_token({"sub": user["email"]})
+    access_token = create_access_token({
+        "sub": user["email"],
+        "username": user["username"],
+        "is_role": user["is_role"]
+    })
+    
     return TokenResponse(access_token=access_token, token_type="bearer")

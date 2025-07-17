@@ -1,7 +1,6 @@
 # app/schemas/user.py
 
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
 from datetime import datetime
 
 #  Request schema for registering a new user
@@ -25,3 +24,5 @@ class UserResponse(BaseModel):
 
     class Config:               
         from_attributes = True
+
+

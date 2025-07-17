@@ -1,7 +1,7 @@
-# app/models/user.py
-
 from typing import Optional
 from datetime import datetime
+
+# User Model
 
 class User:
     def __init__(
@@ -29,3 +29,4 @@ class User:
             "is_active": self.is_active,
             "created_at": self.created_at,
         }
+
