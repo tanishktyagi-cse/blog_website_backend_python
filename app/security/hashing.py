@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from app.core.config import settings
+from app.db.mongodb import mongodb
 
 # Setup for password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -45,7 +46,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> UserResponse:
         if email is None or username is None or is_role is None:
             raise credentials_exception
 
+        user_collection = mongodb.db["users"]
+        user = await user_collection.find_one({"email": email})
+        if user is None:
+            raise credentials_exception
+
         return UserResponse(
+            id=str(user["_id"]),
             email=email,
             username=username,
             is_role=is_role,

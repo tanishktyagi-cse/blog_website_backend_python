@@ -16,6 +16,7 @@ class UserLogin(BaseModel):
 
 #  Response schema (what we return in APIs)
 class UserResponse(BaseModel):
+    id: str
     email: EmailStr
     username: str
     is_role: str

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import auth, posts
+from app.routes import auth, posts, comments
 from app.db.mongodb import connect_to_mongo, close_mongo_connection
 from contextlib import asynccontextmanager
 
@@ -18,3 +18,5 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 
 app.include_router(posts.router, prefix="/api/posts", tags=["Posts"])
+
+app.include_router(comments.router, prefix="/api/comments", tags=["Comments"])
