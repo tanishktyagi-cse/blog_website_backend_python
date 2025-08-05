@@ -1,7 +1,9 @@
 # Python virtual environment
 venv/
 .venv/
+app/venv
 
+data/
 # Python bytecode
 __pycache__/
 *.py[cod]
