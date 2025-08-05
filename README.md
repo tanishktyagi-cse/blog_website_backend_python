@@ -37,17 +37,16 @@ pip install -r requirements.txt
 
 # Run the FastAPI server
 uvicorn app.main:app --reload
-🐳 Docker Deployment (Optional)
+
+🐳 Docker Deployment (**Recommended**)
 This project supports Docker + Docker Compose with two services:
 
-FastAPI Backend
-
-MongoDB Database
+FastAPI Backend + MongoDB Database
 
 Steps
-Build & Start Containers
+Build & Start Containers  or use my docker image **tanishqtyagi/python:Backend_Blog_1.0**
 
-docker-compose up --build
+docker-compose up -d
 Access the API
 
 http://127.0.0.1:8000/docs
@@ -63,4 +62,6 @@ Google OAuth for login
 
 Email verification
 
-Media uploads using MinIO
+Media uploads using MinIO/AWS S3 Bucket
+
+Redis for Memory caching
