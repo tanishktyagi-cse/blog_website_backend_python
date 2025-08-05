@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   backend:
-    image: 52687d805685         #blog_backend:latest       # Use a prebuilt local image or push to Docker Hub
+    image: tanishqtyagi/python:Backend_Blog_1.0 #my docker image                 # Use a prebuilt local image or push to Docker Hub
     container_name: blog_backend
     env_file:
       - .env
